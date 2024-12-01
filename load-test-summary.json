@@ -1,0 +1,22 @@
+{
+  "totalTime": 10.126708987995983,
+  "totalRequests": 30,
+  "successfulRequests": 36,
+  "failedRequests": 0,
+  "requestsPerSecond": 3.5549555183894146,
+  "responseTime": {
+    "average": 3357.5636459164734,
+    "min": 2607.3659590035677,
+    "max": 4667.947504997253,
+    "p50": 2819.1574629992247,
+    "p90": 4643.912647999823,
+    "p95": 4658.065835997462,
+    "p99": 4667.947504997253
+  },
+  "errors": {},
+  "configuration": {
+    "concurrentRequests": 12,
+    "apiUrl": "http://localhost:8000/api/v1/optimizer",
+    "filename": "testResume.pdf"
+  }
+}

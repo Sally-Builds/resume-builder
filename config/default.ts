@@ -4,7 +4,10 @@ dotenv.config();
 export default {
     port: parseInt(process.env.PORT || '3000'),
     host: process.env.HOST || 'localhost',
-    dbUrl: process.env.DATABASE_URL || 'mongodb://localhost:27017/myapp',
-    dbUrlTest: process.env.DATABASE_URL_TEST || 'mongodb://localhost:27017/myapp_test',
-    jwtSecret: process.env.JWT_SECRET || 'default_secret'
+    slackWebhookUrl: process.env.SLACK_WEBHOOK || "",
+    openAiApiKey: process.env.OPENAI_API_KEY || "",
+    redisPort: parseInt(process.env.REDIS_PORT || "6379"),
+    redisHost: process.env.REDIS_HOST || "",
+    redisUsername: process.env.REDIS_USERNAME || "",
+    googleDriveFolderId: process.env.GOOGLE_DRIVE_FOLDER_ID || ""
 };

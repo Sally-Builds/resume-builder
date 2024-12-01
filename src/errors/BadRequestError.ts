@@ -1,4 +1,4 @@
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/AppError.js";
 
 export default class BadRequestError extends AppError {
     statusCode = 400;

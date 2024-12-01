@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Form</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+      }
+
+      h1 {
+        color: #2c3e50;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #34495e;
+        font-weight: 500;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+      }
+
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #3498db;
+      }
+
+      textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      button {
+        background-color: #3498db;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #2980b9;
+      }
+
+      #toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #4caf50;
+        color: white;
+        padding: 15px;
+        border-radius: 4px;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        z-index: 1000;
+      }
+
+      #toast.show {
+        opacity: 1;
+      }
+
+      .error {
+        color: #e74c3c;
+        font-size: 14px;
+        margin-top: 5px;
+        display: none;
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Job Application Form</h1>
+      <form id="jobForm" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="employee_email">Employee Email</label>
+          <input
+            type="email"
+            id="employee_email"
+            name="employee_email"
+            required
+          />
+          <div class="error" id="employee_email_error">
+            Please enter a valid email address
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="client_email">Client Email</label>
+          <input type="email" id="client_email" name="client_email" required />
+          <div class="error" id="client_email_error">
+            Please enter a valid email address
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="company_name">Company Name</label>
+          <input type="text" id="company_name" name="company_name" required />
+          <div class="error" id="company_name_error">
+            Company name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="job_title">Job Title</label>
+          <input type="text" id="job_title" name="job_title" required />
+          <div class="error" id="job_title_error">Job title is required</div>
+        </div>
+
+        <div class="form-group">
+          <label for="job_description">Job Description</label>
+          <textarea
+            id="job_description"
+            name="job_description"
+            required
+          ></textarea>
+          <div class="error" id="job_description_error">
+            Job description is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="file">Upload File (PDF or DOCX)</label>
+          <input
+            type="file"
+            id="resume"
+            name="resume"
+            accept=".pdf,.docx"
+            required
+          />
+          <div class="error" id="file_error">
+            Please upload a PDF or DOCX file
+          </div>
+        </div>
+
+        <button type="submit">Submit Application</button>
+      </form>
+      <div id="toast"></div>
+    </div>
+
+    <script>
+      document
+        .getElementById("jobForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          // Reset error messages
+          document.querySelectorAll(".error").forEach((error) => {
+            error.style.display = "none";
+          });
+
+          // Get form data
+          const formData = new FormData(e.target);
+
+          // Validate form
+          let isValid = true;
+
+          // Email validation
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(formData.get("employee_email"))) {
+            document.getElementById("employee_email_error").style.display =
+              "block";
+            isValid = false;
+          }
+          if (!emailRegex.test(formData.get("client_email"))) {
+            document.getElementById("client_email_error").style.display =
+              "block";
+            isValid = false;
+          }
+
+          // Job title validation
+          if (!formData.get("job_title").trim()) {
+            document.getElementById("job_title_error").style.display = "block";
+            isValid = false;
+          }
+
+          // Job title validation
+          if (!formData.get("company_name").trim()) {
+            document.getElementById("company_name_error").style.display =
+              "block";
+            isValid = false;
+          }
+
+          // Job description validation
+          if (!formData.get("job_description").trim()) {
+            document.getElementById("job_description_error").style.display =
+              "block";
+            isValid = false;
+          }
+
+          // File validation
+          const file = formData.get("resume");
+          if (
+            !file ||
+            ![
+              "application/pdf",
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            ].includes(file.type)
+          ) {
+            document.getElementById("file_error").style.display = "block";
+            isValid = false;
+          }
+
+          if (!isValid) return;
+
+          try {
+            const response = await fetch(
+              "http://localhost:8000/api/v1/optimizer",
+              {
+                method: "POST",
+                body: formData,
+              }
+            );
+
+            if (response.ok) {
+              console.log(response);
+              // alert("Form submitted successfully!");
+              const toast = document.getElementById("toast");
+              toast.textContent = `Job submitted successfully!.`;
+              toast.classList.add("show");
+              e.target.reset();
+              setTimeout(() => {
+                toast.classList.remove("show");
+              }, 3000);
+            } else {
+              console.log(response, "err");
+              //   alert("Error submitting form. Please try again.");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            // alert("Error submitting form. Please try again.");
+          }
+        });
+    </script>
+  </body>
+</html>

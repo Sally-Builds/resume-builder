@@ -1,13 +1,15 @@
-import config from 'config'
+import config from './../config/default.js'
+// import config from 'config'
 import 'express-async-errors'
-import App from "./app";
+import App from "./app.js";
 import mongoose from 'mongoose';
-import DB from './utils/db';
 
 
-const PORT = config.get<number>('port');
+// const PORT = config.get<number>('port');
+const PORT = config['port']
 
 process.on("uncaughtException", (err: Error) => {
+    console.log(err)
     console.log("UNCAUGHT EXCEPTION! 💥 Shutting down...");
     // console.log(err.name, err.message);
     process.exit(1);
@@ -16,7 +18,6 @@ process.on("uncaughtException", (err: Error) => {
 
 const server = App().listen(PORT, () => {
     console.log(`Application started successfully: ${PORT}`)
-    DB.connect(console)
 })
 
 
