@@ -4,8 +4,8 @@
   "description": "API Boilerplate",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc-watch --onSuccess \"node --max-old-space-size=1536 ./dist/src/index.js\"",
-    "start": "node --max-old-space-size=1536 ./dist/src/index.js"
+    "dev": "tsc-watch --onSuccess \"node ./dist/src/index.js\"",
+    "start": "tsc && node ./dist/src/index.js"
   },
   "repository": {
     "type": "git",
