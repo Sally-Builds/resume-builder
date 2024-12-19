@@ -76,7 +76,7 @@ export const AdditionalInformationSchema = z.object({
 export const ResumeSchema = z.object({
     name: z.string(),
     address: z.string(),
-    email: z.string().email().transform((val) => val.replace(/\s+/g, '').toLowerCase()),
+    email: z.string().transform((val) => val.replace(/\s+/g, '').toLowerCase()),
     professionalSummary: z.object({
         section_title: z.string(),
         content: z.string()
